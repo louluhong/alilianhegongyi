@@ -1,0 +1,42 @@
+// prefix mixin
+@mixin prefix ($property, $value, $vendors: webkit moz) {
+    @if $vendors {
+        @each $vendor in $vendors {
+            #{"-" + $vendor + "-" + $property}: #{$value};
+        }
+    }
+    #{$property}: #{$value};
+}
+// usage: @include keyframes (name) { content }
+@mixin keyframes ($name) {
+    @-webkit-keyframes #{$name} {
+        @content;
+    }
+    @keyframes #{$name} {
+        @content;
+    }
+}
+
+// clearfix
+@mixin clearfix {
+    &:after {
+        content: '';
+        display: table;
+        clear: both;
+    }
+}
+
+// 单行/多行隐藏
+@mixin ellipsis ($line: 1) {
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+    @if $line == 1 {
+        white-space: nowrap;
+    }
+    @else {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: $line;
+    }
+}
